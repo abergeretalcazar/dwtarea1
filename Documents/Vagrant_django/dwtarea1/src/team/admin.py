@@ -12,6 +12,8 @@ class JugadorAdmin(admin.ModelAdmin):
 	list_display = ('id', 'nombre', 'apodo', 'fecha_nacimiento', 'edad', 'rut', 'email', 'estatura', 'peso', 'posicion', 'nombre_equipo', 'nombre_partido')	
 	search_fields = ('nombre', 'apodo', 'rut')
 	list_filter = ('nombre_equipo', 'fecha_nacimiento')
+	#fields = ( 'thumbnail', )
+	#readonly_fields = ('thumbail',)
 
 @admin.register(Partido)
 class PartidoAdmin(admin.ModelAdmin):

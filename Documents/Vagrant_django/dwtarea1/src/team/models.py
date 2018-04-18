@@ -1,5 +1,6 @@
 
 from django.db import models
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 # Create your models here.
 class Equipo(models.Model):
@@ -34,8 +35,17 @@ class Jugador(models.Model):
 	nombre_equipo = models.ForeignKey('Equipo', on_delete = models.CASCADE)
 	nombre_partido = models.ForeignKey('Partido', on_delete = models.CASCADE)
 	
-	def __str__(self):
-		return self.nombre
+	#def __str__(self):
+	#	return self.nombre
+	#def thumbnail(self):
+  	#	return u'<img src="%s" />' % (self.fotografia.url)
+	def MakeThumbnail(file):
+		img = fotografia.open(file)
+		img.thumbnail((128, 128), fotografia.ANTIALIAS)
+		thumbnailString = StringIO.StringIO()
+		img.save(thumbnailString, 'JPEG')
+		newFile = InMemoryUploadedFile(thumbnailString, None, 'temp.jpg', 'image/jpeg', thumbnailString.len, None)
+		return newFile
 
 class Entrenador(models.Model):
 	nombre = models.CharField(max_length=100)
