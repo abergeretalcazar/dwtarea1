@@ -13,7 +13,7 @@ class Equipo(models.Model):
 
 POSICION_CHOICES = (
 	('bs','Base'),
-	('es', 'Escolata'),
+	('es', 'Escolta'),
 	('al', 'Alero'),
 	('ap','Ala Pivot'),
 	('pv','Pivot'),
@@ -29,9 +29,10 @@ class Jugador(models.Model):
 	email = models.CharField(max_length=100)
 	estatura = models.CharField(max_length=4)
 	peso = models.CharField(max_length=3)
-	foografia = models.ImageField(upload_to='img_player')
+	fotografia = models.ImageField(upload_to='img_player')
 	posicion = models.CharField(max_length=3, choices=POSICION_CHOICES, default="bs")
 	nombre_equipo = models.ForeignKey('Equipo', on_delete = models.CASCADE)
+	nombre_partido = models.ForeignKey('Partido', on_delete = models.CASCADE)
 	
 	def __str__(self):
 		return self.nombre
@@ -49,7 +50,6 @@ class Entrenador(models.Model):
 
 class Partido(models.Model):
 	nombre = models.CharField(max_length=100)
-	nombre_equipo = models.ForeignKey('Equipo', on_delete = models.CASCADE)
-
+	
 	def __str__(self):
 		return self.nombre
