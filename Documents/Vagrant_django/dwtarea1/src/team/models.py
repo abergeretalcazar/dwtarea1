@@ -5,9 +5,8 @@ from django.db import models
 class Equipo(models.Model):
 	nombre = models.CharField(max_length=200)
 	descripcion = models.TextField()
-	logo = models.ImageField(upload_to='img_logo')
+	logo = models.ImageField(upload_to='img_logo/')
 	codigo = models.CharField(max_length=3)
-	nombre = models.ForeignKey('Entrenador', on_delete = models.CASCADE)
 	
 	def __str__(self):
 		return self.nombre
@@ -32,7 +31,7 @@ class Jugador(models.Model):
 	peso = models.CharField(max_length=3)
 	foografia = models.ImageField(upload_to='img_player')
 	posicion = models.CharField(max_length=3, choices=POSICION_CHOICES, default="bs")
-	nombre = models.ForeignKey('Equipo', on_delete = models.CASCADE)
+	nombre_equipo = models.ForeignKey('Equipo', on_delete = models.CASCADE)
 	
 	def __str__(self):
 		return self.nombre
@@ -43,13 +42,14 @@ class Entrenador(models.Model):
 	email = models.CharField(max_length=100)
 	rut = models.CharField(max_length=100)
 	apodo = models.CharField(max_length=100)
+	nombre_equipo = models.ForeignKey('Equipo', on_delete = models.CASCADE)
 
 	def __str__(self):
 		return self.nombre
 
 class Partido(models.Model):
 	nombre = models.CharField(max_length=100)
-	nombre = models.ForeignKey('Equipo', on_delete = models.CASCADE)
+	nombre_equipo = models.ForeignKey('Equipo', on_delete = models.CASCADE)
 
 	def __str__(self):
 		return self.nombre
