@@ -1,4 +1,3 @@
-
 from django.db import models
 from django.utils.safestring import mark_safe
 from django.core.files.uploadedfile import InMemoryUploadedFile
@@ -7,11 +6,17 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 class Equipo(models.Model):
 	nombre = models.CharField(max_length=200)
 	descripcion = models.TextField()
-	logo = models.ImageField(upload_to='img_logo/')
+	logo = models.ImageField(upload_to='img_logo')
 	codigo = models.CharField(max_length=3)
 	
-	def __str__(self):
-		return self.nombre
+	def thumbnail_logo(self):
+		if  self.nombre:
+			return mark_safe('<image src="%s" width="60" height="75" />' % self.logo.url)
+		else:
+			return ' '
+		get_image_tag.short_description = 'Photo'
+		#get_image_tag.allow_tags = True #redundant
+		get_image_tag.admin_order_field = 'nombre'
 
 POSICION_CHOICES = (
 	('bs','Base'),
@@ -20,7 +25,6 @@ POSICION_CHOICES = (
 	('ap','Ala Pivot'),
 	('pv','Pivot'),
 )
-
 
 class Jugador(models.Model):
 	nombre = models.CharField(max_length=100)
